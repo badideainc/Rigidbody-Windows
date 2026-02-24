@@ -1,17 +1,24 @@
 import pygetwindow as gw
 import pyautogui as pag
 import time
+from component import Component
 
-def gravity(window):
+class GravityWindowComponent(Component):
+    def __init__(self, window, startTime):
+        super().__init__("Gravity", window, startTime)
 
-    start_time = time.perf_counter()
+        self._gravity_constant = 9.81
 
-    while window:
-        if (window.bottomright[1] < pag.size()[1]):
-            window.moveRel(0, int(acceleration(time.perf_counter() - start_time)))
+    def _gravity(self, window):
 
-def acceleration(time):
-    return 0.5 * 9.81 * time**2
+        start_time = time.perf_counter()
 
-win = gw.getWindowsWithTitle('Untitled')[0]
-gravity(win)
+        while window:
+            if (window.bottomright[1] < pag.size()[1]):
+                window.moveRel(0, int(self._acceleration(time.perf_counter() - start_time)))
+
+    def _acceleration(self, time):
+        return 0.5 * self._gravity_constant * time**2
+    
+    def update(self):
+        self._gravity(self.window)
