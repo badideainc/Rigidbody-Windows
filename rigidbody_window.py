@@ -5,8 +5,7 @@ import pygetwindow as gw
 
 class RigidbodyWindow:
     def __init__(self, executable, windowName, components):
-        self.executable = executable
-        self.window = self._open_window(windowName)
+        self.window = self._open_window(executable, windowName)
         self.start_time = time.perf_counter()
 
         self.components = []
@@ -16,8 +15,8 @@ class RigidbodyWindow:
 
         self.update()
 
-    def _open_window(self, windowName, timeout=5):
-        subprocess.Popen([self.executable])  # start window
+    def _open_window(self, executable, windowName, timeout=5):
+        subprocess.Popen([executable])  # start window
         deadline = time.time() + timeout
 
         while time.time() < deadline:
