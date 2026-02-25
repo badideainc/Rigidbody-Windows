@@ -44,5 +44,3 @@ class RigidbodyWindow:
     def __str__(self):
         return f"RigidbodyWindow(executable={self.executable}, window={self.window}, components={self.components})"
 
-rb = RigidbodyWindow("notepad.exe", "Untitled - Notepad", ["GravityWindowComponent"])
-print(rb)
