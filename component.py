@@ -9,12 +9,15 @@ class Component:
     def listen(self):
         pass
 
+    #On mouse click on window
     def onClick(self, event):
         pass
 
+    #On window collision with another window
     def onEnterCollision(self, event):
         pass
 
+    #On window exit collision with another window
     def onExitCollision(self, event):
         pass
 
