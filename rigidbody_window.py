@@ -2,6 +2,7 @@ import subprocess
 import time
 import importlib
 import pygetwindow as gw
+from component import Component
 
 class RigidbodyWindow:
     def __init__(self, executable, windowName, components):
@@ -38,6 +39,7 @@ class RigidbodyWindow:
 
     def update(self):
         for component in self.components:
+            component.listen()
             component.update()
         self.update()
 
