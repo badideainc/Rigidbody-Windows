@@ -1,3 +1,4 @@
+from window_event import *
 
 class Component:
     def __init__(self, id, window, startTime):
