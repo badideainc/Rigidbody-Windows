@@ -39,10 +39,9 @@ class RigidbodyWindow:
 
     def update(self):
         for component in self.components:
-            component.listen()
-            component.update()
-        self.update()
+                component.update()
+            
 
     def __str__(self):
-        return f"RigidbodyWindow(executable={self.executable}, window={self.window}, components={self.components})"
+        return f"RigidbodyWindow(window={self.window}, components={self.components})"
 
