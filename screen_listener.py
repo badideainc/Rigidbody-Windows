@@ -1,3 +1,5 @@
+import inspect
+
 class ScreenListener:
     def __init__(self):
         self.windows = []
@@ -6,4 +8,14 @@ class ScreenListener:
         self.windows.append(window)
     
     def listen(self):
-        pass
+        while True:
+            for window in self.windows:
+                window.update()
+                if (self.has_event(window, "onClick")):
+                    print("Window has onClick event")
+
+    def has_event(self, window, eventName):
+        for component in window.components:
+            if hasattr(component, eventName):
+                return True
+        return False
