@@ -1,4 +1,4 @@
-import subprocess
+import webview
 import time
 import importlib
 import pygetwindow as gw
@@ -7,8 +7,8 @@ import inspect
 from window_math import Vector2
 
 class RigidbodyWindow:
-    def __init__(self, executable, windowName, components, position = Vector2(0, 0)):
-        self.window = self._open_window(executable, windowName)
+    def __init__(self, windowName, launchPath, components, position = Vector2(0, 0)):
+        self.window = self._open_window(launchPath, windowName)
         self.window.moveTo(position.x, position.y)
         self.start_time = time.perf_counter()
 
@@ -19,19 +19,15 @@ class RigidbodyWindow:
 
         self.update()
 
-    def _open_window(self, executable, windowName, timeout=5):
-        subprocess.Popen([executable])  # start window
-        deadline = time.time() + timeout
+    def _open_window(self, path, windowName):
+        window = webview.create_window(windowName, url=path)
 
-        while time.time() < deadline:
-            wins = gw.getWindowsWithTitle(windowName)  # e.g., "Untitled - Notepad"
-            if wins:
-                win = wins[0]
-                win.activate()
-                return win
-            time.sleep(0.05)
+        if window is None:
+            raise RuntimeError("Could not find window")
+        
+        webview.start()
 
-        raise RuntimeError("Could not find window")
+        return window      
     
     def add_component(self, component):
         module_name = component.removesuffix("Component")
@@ -43,7 +39,7 @@ class RigidbodyWindow:
     def update(self):
         for component in self.components:
                 component.update()
-            
+
     def onClick(self, event):
         for component in self.components:
             if self._overrides(component, "onClick"):
