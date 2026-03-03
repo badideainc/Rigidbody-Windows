@@ -11,13 +11,9 @@ class ScreenListener:
         while True:
             for window in self.windows:
                 window.update()
-                if (self.has_event(window, "onClick")):
+                if (window.hasOnClick):
                     print("Window has onClick event")
-                if (self.has_event(window, "onEnterCollision")):
+                if (window.hasOnEnterCollision):
                     print("Window has onEnterCollision event")
-
-    def has_event(self, window, eventName):
-        for component in window.components:
-            if hasattr(component, eventName):
-                return True
-        return False
+                if (window.hasOnExitCollision):
+                    print("Window has onExitCollision event")
