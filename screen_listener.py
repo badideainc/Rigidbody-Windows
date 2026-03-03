@@ -13,6 +13,8 @@ class ScreenListener:
                 window.update()
                 if (self.has_event(window, "onClick")):
                     print("Window has onClick event")
+                if (self.has_event(window, "onEnterCollision")):
+                    print("Window has onEnterCollision event")
 
     def has_event(self, window, eventName):
         for component in window.components:
