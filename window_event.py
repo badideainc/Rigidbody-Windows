@@ -1,3 +1,5 @@
+from window_math import Vector2
+
 class WindowEvent:
     def __init__(self, window):
         self.window = window
@@ -12,7 +14,3 @@ class WindowClickEvent(WindowEvent):
         super().__init__(window)
         self.position = Vector2(x, y)
 
-class Vector2:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
