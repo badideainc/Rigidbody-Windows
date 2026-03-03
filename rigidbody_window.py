@@ -5,11 +5,14 @@ import pygetwindow as gw
 from component import Component
 import inspect
 from window_math import Vector2
+from pathlib import Path
 
 class RigidbodyWindow:
     def __init__(self, windowName, launchPath, components, position = Vector2(0, 0)):
+        self.screen = webview.screens[0]
         self.window = self._open_window(launchPath, windowName)
-        self.window.moveTo(position.x, position.y)
+
+        self.window.move(position.x, position.y)
         self.start_time = time.perf_counter()
 
         self.components = []
@@ -20,7 +23,9 @@ class RigidbodyWindow:
         self.update()
 
     def _open_window(self, path, windowName):
-        window = webview.create_window(windowName, url=path)
+        url = path.resolve().as_uri()
+
+        window = webview.create_window(windowName, url=url)
 
         if window is None:
             raise RuntimeError("Could not find window")
