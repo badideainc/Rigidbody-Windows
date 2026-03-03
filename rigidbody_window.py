@@ -4,10 +4,12 @@ import importlib
 import pygetwindow as gw
 from component import Component
 import inspect
+from window_math import Vector2
 
 class RigidbodyWindow:
-    def __init__(self, executable, windowName, components):
+    def __init__(self, executable, windowName, components, position = Vector2(0, 0)):
         self.window = self._open_window(executable, windowName)
+        self.window.moveTo(position.x, position.y)
         self.start_time = time.perf_counter()
 
         self.components = []
