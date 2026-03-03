@@ -16,6 +16,8 @@ class GravityWindowComponent(Component):
         if (window.bottomright[1] < pag.size()[1]):
                 window.moveRel(0, int(self._acceleration(time.perf_counter() - start_time)))
             
+    def onClick(self, event):
+         return super().onClick(event)
 
     def _acceleration(self, time):
         return 0.5 * self._gravity_constant * time**2
