@@ -10,7 +10,9 @@ from pathlib import Path
 class RigidbodyWindow:
     def __init__(self, windowName, launchPath, components, position = Vector2(0, 0)):
         self.screen = webview.screens[0]
+
         self.window = self._open_window(launchPath, windowName)
+        #need to store unchanging information about the window otherwise it breaks
 
         self.window.move(position.x, position.y)
         self.start_time = time.perf_counter()
@@ -39,7 +41,7 @@ class RigidbodyWindow:
         module_name = "".join([f"_{c.lower()}" if c.isupper() else c for c in module_name]).lstrip("_")
         module = importlib.import_module(module_name)
         class_ = getattr(module, component)
-        self.components.append(class_(self.window, self.start_time))
+        self.components.append(class_(module_name, self.window, self.screen, self.start_time))
 
     def update(self):
         for component in self.components:
