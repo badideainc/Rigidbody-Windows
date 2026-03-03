@@ -4,15 +4,15 @@ import time
 from component import Component
 
 class GravityWindowComponent(Component):
-    def __init__(self, window, startTime):
-        super().__init__("Gravity", window, startTime)
+    def __init__(self, window, screen, startTime):
+        super().__init__("Gravity", window, screen, startTime)
 
         self._gravity_constant = 9.81
 
         self._start_time = time.perf_counter()
 
     def _gravity(self, window):
-        if (window.bottomright[1] < pag.size()[1]):
+        if (window.y + window.height < self.screen.height):
                 window.moveRel(0, int(self._acceleration(time.perf_counter() - self._start_time)))
             
     def onClick(self, event):
