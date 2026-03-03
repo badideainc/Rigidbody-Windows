@@ -1,9 +1,10 @@
 from window_event import *
 
 class Component:
-    def __init__(self, id, window, startTime):
+    def __init__(self, id, window, screen, startTime):
         self.id = id
         self.window = window
+        self.screen = screen
         self.start_time = startTime
 
     #On mouse click on window
