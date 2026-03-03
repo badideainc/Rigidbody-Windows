@@ -12,16 +12,8 @@ class RigidbodyWindow:
 
         self.components = []
 
-        self._hasOnClick = False
-        self._hasOnEnterCollision = False
-        self._hasOnExitCollision = False
-
         for component in components:
             self.add_component(component)
-            added_component = self.components[-1]
-            self._hasOnClick = self._hasOnClick or self._has_event(added_component, "onClick")
-            self._hasOnEnterCollision = self._hasOnEnterCollision or self._has_event(added_component, "onEnterCollision")
-            self._hasOnExitCollision = self._hasOnExitCollision or self._has_event(added_component, "onExitCollision")
 
         self.update()
 
@@ -50,9 +42,25 @@ class RigidbodyWindow:
         for component in self.components:
                 component.update()
             
-    def _has_event(self, component, eventName):
-        if self._overrides(component, eventName):
-            return True 
+    def onClick(self, event):
+        for component in self.components:
+            if self._overrides(component, "onClick"):
+                component.onClick(event)
+
+    def onEnterCollision(self, event):
+        for component in self.components:
+            if self._overrides(component, "onEnterCollision"):
+                component.onEnterCollision(event)
+    
+    def onExitCollision(self, event):
+        for component in self.components:
+            if self._overrides(component, "onExitCollision"):
+                component.onExitCollision(event)
+
+    def _has_event(self, eventName):
+        for component in self.components:
+            if self._overrides(component, eventName):
+                return True 
         return False
     
     def _overrides(self, component, eventName):
@@ -60,15 +68,3 @@ class RigidbodyWindow:
 
     def __str__(self):
         return f"RigidbodyWindow(window={self.window}, components={self.components})"
-
-    @property
-    def hasOnClick(self):
-        return self._hasOnClick
-    
-    @property
-    def hasOnEnterCollision(self):
-        return self._hasOnEnterCollision
-    
-    @property
-    def hasOnExitCollision(self):
-        return self._hasOnExitCollision
