@@ -5,10 +5,6 @@ class Component:
         self.id = id
         self.window = window
         self.start_time = startTime
-    
-    #Listen for events
-    def listen(self):
-        pass
 
     #On mouse click on window
     def onClick(self, event):
