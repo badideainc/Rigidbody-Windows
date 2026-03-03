@@ -1,4 +1,3 @@
-
 class ScreenListener:
     def __init__(self):
         self.windows = []
